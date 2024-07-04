@@ -1,6 +1,12 @@
 module.exports = {
   darkMode: 'class',
-  content: ['./src/assets/**/*.{html, scss, js}'],
+  content: [
+    './src/assets/**/*.{html, scss, js}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
   theme: {
     extend: {
       fontFamily: {
@@ -8,31 +14,31 @@ module.exports = {
         regular: 'PingARLT',
       },
       colors: {
-        "primary": {
-          DEFAULT: "#004956",
-          "d": "#004955",
-          "l": "#004D5A",
-          "darker": "#1e2f32"
+        'primary': {
+          DEFAULT: '#004956',
+          'd': '#004955',
+          'l': '#004D5A',
+          'darker': '#1e2f32'
         },
-        "light": {
-          DEFAULT: "#BBF3E5",
-          "d": '#A8F0DE',
-          "l": '#CBF6EB'
+        'light': {
+          DEFAULT: '#BBF3E5',
+          'd': '#A8F0DE',
+          'l': '#CBF6EB'
         },
-        "secondary": {
-          DEFAULT: "#76E8CD",
-          "d": "#73E7CC",
-          "l": "#96EDD9",
-          "50": "#BAF3E6",
-          "25": "#CFF7EE"
+        'secondary': {
+          DEFAULT: '#76E8CD',
+          'd': '#73E7CC',
+          'l': '#96EDD9',
+          '50': '#BAF3E6',
+          '25': '#CFF7EE'
         },
-        "grayer": {
+        'grayer': {
           50: '#fcfcfc',
           100: '#f8f8f8',
           200: '#eee',
           300: '#bbb',
         },
-        "darker": {
+        'darker': {
           50: '#999999',
           100: '#666666',
           200: '#444444',

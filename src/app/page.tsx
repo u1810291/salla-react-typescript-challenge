@@ -4,7 +4,7 @@ import React from 'react'
 import Dropdown from '../components/Dropdown'
 import SearchInput from '../components/SearchInput'
 import ProductCard from '../components/ProductCard'
-import Scroll from '../components/Scroll'
+import Scroll from '../components/Spinner'
 import Banner from 'src/components/Banner'
 
 export default function Home() {

@@ -1,10 +1,14 @@
 'use client'
 import React from 'react'
 import { Formik, Form, Field } from 'formik'
-import { formSchema, initialValues } from '../../../schemas/formDataSchema'
-import NormalInput from 'src/components/NormalInput'
+import { useAuth } from '../../../hooks/useAuth'
+import Spinner from '../../../components/Spinner'
+import NormalInput from '../../../components/NormalInput'
+import { signUpSchema, signUpInitialValues } from '../../../schemas/formDataSchema'
+import Link from 'next/link'
 
 export default function SignUp() {
+  const { signUp, error } = useAuth()
 
   return (
     <div className="container mx-auto">
@@ -14,66 +18,67 @@ export default function SignUp() {
           <span className="text-xs text-gray-500">قم بالتسجيل لمواصلة التسوق</span>
         </div>
         <Formik
-          initialValues={initialValues}
-          validationSchema={formSchema}
-          onSubmit={values => {
-            console.log(values);
-          }}
+          initialValues={signUpInitialValues}
+          validationSchema={signUpSchema}
+          onSubmit={(values) => signUp(values)}
         >
-          {({ errors, touched }) => (
+          {({ isSubmitting }) => (
             <Form>
-              <label className="block mb-2 text-md" htmlFor="first_name">الاسم الأول</label>
               <Field
                 name="firstName"
+                label="الاسم الأول"
                 component={NormalInput}
                 placeholder="الاسم الأول.."
+                {...(isSubmitting && { disabled: true })}
               />
-            <label className="block mb-2 text-md" htmlFor="last_name">اسم العائلة</label>
               <Field
                 name="lastName"
-                placeholder="اسم العائلة.."
+                label="اسم العائلة"
                 component={NormalInput}
+                placeholder="اسم العائلة.."
+                {...(isSubmitting && { disabled: true })}
               />
-              {errors.lastName && touched.lastName ? (
-                <div>{errors.lastName}</div>
-              ) : null}
-              <label className="block mb-2 text-md" htmlFor="email">بريد</label>
               <Field
                 name="email"
                 type="email"
+                label="بريد"
                 placeholder="بريد.."
                 component={NormalInput}
+                {...(isSubmitting && { disabled: true })}
               />
-              {errors.email && touched.email ? (
-                <div>{errors.email}</div>
-              ) : null}
-              <label className="block mb-2 text-md" htmlFor="password">كلمة المرور</label>
               <Field
                 name="password" 
                 type="password"
+                label="كلمة المرور"
                 placeholder="الاسم الأول.."
                 component={NormalInput}
+                {...(isSubmitting && { disabled: true })}
               />
-              {errors.password && touched.password ? (
-                <div>{errors.password}</div>
-              ) : null}
-              <label className="block mb-2 text-md" htmlFor="confirm_password">تأكيد كلمة المرور</label>
               <Field
                 type="password"
-                name="confirmPassword" 
+                name="confirmPassword"
                 component={NormalInput}
+                label="تأكيد كلمة المرور"
                 placeholder="تأكيد كلمة المرور.."
+                {...(isSubmitting && { disabled: true })}
               />
-              {errors.confirmPassword && touched.confirmPassword ? (
-                <div>{errors.confirmPassword}</div>
-              ) : null}
               <div className="flex gap-4">
-                <button type="submit" className="w-full bg-primary text-secondary flex-1 p-2 text-md rounded-md">دخول</button>
-                <button type="button" className="w-fit text-primary underline p-2 text-md rounded-md">نسيت كلمة المرور؟</button>
+                <button
+                  type="submit"
+                  className="w-full bg-primary text-secondary flex-1 p-2 text-md rounded-md">
+                    {isSubmitting ? <Spinner/> : 'دخول'}
+                </button>
+                <Link
+                  href="/auth/sign-in"
+                  className="w-fit text-primary underline p-2 text-md rounded-md"
+                >
+                  هل لديك حساب بالفعل؟
+                </Link>
               </div>
             </Form>
           )}
         </Formik>
+        <div className="flex justify-center text-red-500 bg-red capitalize">{error as string}</div>
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Scroll() {
+export default function Spinner() {
   return (
     <div role="status" className="flex items-center justify-center p-2">
       <svg aria-hidden="true" className="w-6 h-6 mr-2 text-gray-200 animate-spin fill-primary" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

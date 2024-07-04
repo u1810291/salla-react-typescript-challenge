@@ -1,6 +1,14 @@
+'use client'
 import React from 'react'
+import { Formik, Form, Field } from 'formik'
+import { useAuth } from '../../../hooks/useAuth'
+import Spinner from '../../../components/Spinner'
+import NormalInput from '../../../components/NormalInput'
+import { signInInitialValues, signInSchema} from '../../../schemas/formDataSchema'
+import Link from 'next/link'
 
-export default function Login() {
+export default function SignIn() {
+  const { signIn, error } = useAuth()
   return (
     <div className="container mx-auto">
       <div className="p-2 sm:p-4 bg-white rounded-lg shadow-4xl sm:max-w-[700px] mx-auto">
@@ -8,20 +16,45 @@ export default function Login() {
           <h2 className="text-lg">تسجيل الدخول</h2>
           <span className="text-xs text-gray-500">قم بتسجيل الدخول لمتابعة التسوق</span>
         </div>
-        <form method="post" action="#" className="flex flex-col w-full">
-          <div className="mb-4">
-            <label className="block mb-2 text-md" htmlFor="username">اسم المستخدم</label>
-            <input type="text" name="username" id="username" autoComplete="on" className="w-full p-2 bg-white appearance-none rounded-md border text-md" placeholder="اسم المستخدم.." />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2 text-md" htmlFor="password">كلمة المرور</label>
-            <input type="password" name="password" autoComplete="on" id="password" className="w-full p-2 bg-white appearance-none rounded-md border text-md" placeholder="كلمة المرور.." />
-          </div>
-          <div className="flex gap-4">
-            <button type="button" className="w-full bg-primary text-secondary flex-1 p-2 text-md rounded-md">دخول</button>
-            <button type="button" className="w-fit text-primary underline p-2 text-md rounded-md">نسيت كلمة المرور؟</button>
-          </div>
-        </form>
+        <Formik
+          initialValues={signInInitialValues}
+          validationSchema={signInSchema}
+          onSubmit={(values) => signIn(values)}
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              <Field
+                name="email"
+                label="اسم المستخدم"
+                component={NormalInput}
+                placeholder="اسم المستخدم.."
+                {...(isSubmitting && { disabled: true })}
+              />
+              <Field
+                name="password" 
+                type="password"
+                label="كلمة المرور"
+                placeholder="الاسم الأول.."
+                component={NormalInput}
+                {...(isSubmitting && { disabled: true })}
+              />
+              <div className="flex gap-4 my-4">
+                <button
+                  type="submit"
+                  className="w-full bg-primary text-secondary flex-1 p-2 text-md rounded-md">
+                    {isSubmitting ? <Spinner/> : 'دخول'}
+                </button>
+                <Link
+                  href="/auth/sign-up"
+                  className="w-fit text-primary underline p-2 text-md rounded-md"
+                >
+                    نسيت كلمة المرور؟
+                </Link>
+              </div>
+            </Form>
+          )}
+        </Formik>
+        <div className="flex justify-center text-red-500 bg-red capitalize">{error as string}</div>
       </div>
     </div>
   )

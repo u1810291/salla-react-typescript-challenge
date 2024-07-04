@@ -1,28 +1,29 @@
 'use client'
-import React from 'react';
-import { FieldProps } from 'formik';
+import React from 'react'
+import { FieldProps } from 'formik'
 
-interface NormalInputProps extends FieldProps{
-  autoComplete: 'on' | 'off';
+interface NormalInputProps extends FieldProps {
+  label: string;
 }
 
 export default ({
   field,
-  autoComplete,
   form: { touched, errors },
+  label,
   ...props
 }: NormalInputProps) => (
-  <div className='flex-col text-red-600'>
+  <div className='flex-col'>
+    <label className="block mb-2 text-md">{label}</label>
     <input
-      autoComplete={autoComplete}
       {...field}
       {...props}
+      autoComplete="on"
       className="w-full p-2 bg-white appearance-none rounded-md border text-md"
     />
     {touched[field.name]
       && errors[field.name]
       && (
-        <div className="decoration-red-600 text-red-600">{errors[field.name] as string}</div>
+        <div className="text-red-500 bg-red">{errors[field.name] as string}</div>
     )}
   </div>
 )
