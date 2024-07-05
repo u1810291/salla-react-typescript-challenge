@@ -14,24 +14,27 @@ const singleInstance = (): Axios => {
     },
     timeout: 30000
   })
+
+  instance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+    const URL = config.url?.split('/')
+    if(config.method === 'post' && !URL?.includes('user')) {
+      const token = window.localStorage?.getItem('token')
+      console.log(config, token)
+      config.url = config.url + `?token=${token}`
+    }
+    return config
+  }, (error) => {
+    console.error(error)
+    return Promise.reject(error)
+  })
+
+  instance.interceptors.response.use((response) => {
+    return response
+  }, (error) => {
+    console.error(error)
+    return Promise.reject(error)
+  })
   return instance
 }
-
-axios.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  console.log(config.url)
-  config.params['token'] = localStorage.getItem('token')
-  return config
-}, (error) => {
-  console.error(error)
-  return Promise.reject(error)
-})
-
-axios.interceptors.response.use((response) => {
-  console.log(response)
-  return response
-}, (error) => {
-  console.error(error)
-  return Promise.reject(error)
-})
 
 export default singleInstance()

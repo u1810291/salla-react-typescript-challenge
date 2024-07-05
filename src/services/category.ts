@@ -1,5 +1,5 @@
-import service from '../services'
+import service from '.'
 
 export default {
-  allCategories: service.get('/category/')
+  allCategories: () => service.get('/category/')
 }

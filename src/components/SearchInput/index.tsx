@@ -1,6 +1,7 @@
+'use client'
 import React from 'react'
 
-export default function SearchInput({ onChange, placeholder, labelText }: { onChange: () => void; placeholder: string; labelText: string }) {
+export default function SearchInput({ onChange = () => {}, placeholder, labelText }: { onChange: () => void; placeholder: string; labelText: string }) {
   return (
     <div className="flex flex-col gap-1 flex-1">
       <label htmlFor="product_query" className="hidden">{labelText}</label>

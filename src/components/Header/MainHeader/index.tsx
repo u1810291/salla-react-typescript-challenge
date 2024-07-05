@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import Link from 'next/link'
-import LogoImage from 'src/components/LogoImage'
+import LogoImage from '../../../components/LogoImage'
 
 export default function index() {
   return (

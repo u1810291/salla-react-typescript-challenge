@@ -1,4 +1,4 @@
-import { UserSignInI, UserSignUpI } from 'src/interfaces/UseAuth'
+import { UserSignInI, UserSignUpI } from '../interfaces/UseAuth'
 import service from '.'
 
 export default {

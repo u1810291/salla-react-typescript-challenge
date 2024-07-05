@@ -8,7 +8,7 @@ import { signUpSchema, signUpInitialValues } from '../../../schemas/formDataSche
 import Link from 'next/link'
 
 export default function SignUp() {
-  const { signUp, error } = useAuth()
+  const { signUp, error, success } = useAuth()
 
   return (
     <div className="container mx-auto">
@@ -78,7 +78,7 @@ export default function SignUp() {
             </Form>
           )}
         </Formik>
-        <div className="flex justify-center text-red-500 bg-red capitalize">{error as string}</div>
+        <div className="flex justify-center text-red-500 bg-red capitalize">{!success && error as string}</div>
       </div>
     </div>
   )

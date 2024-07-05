@@ -1,4 +1,4 @@
-import { ItemProps } from 'src/components/Cart/Item';
+import { ItemProps } from '../components/Cart/Item';
 
 export const items: ItemProps[] = [
   {

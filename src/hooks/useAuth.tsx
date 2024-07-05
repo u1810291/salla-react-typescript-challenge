@@ -1,8 +1,8 @@
 'use client'
 import user from '../services/user'
-import React, { useCallback, useState, createContext, useContext, ReactNode } from 'react'
-import { UserSignInI, UserSignUpI } from '../interfaces/UseAuth'
 import { AuthContextI } from '../interfaces/UseAuth'
+import { UserSignInI, UserSignUpI } from '../interfaces/UseAuth'
+import React, { useCallback, useState, createContext, useContext, ReactNode } from 'react'
 
 const defaultAuthContextValue: AuthContextI = {
   error: '',
@@ -37,8 +37,8 @@ export const AuthProvider = ({ children }): ReactNode => {
 		setLoading(true)
 		try {
 			const register = await user.signUp(data)
-			setSuccess(register.data)
-			setTimeout(() => window.location.replace('/sign-in'), 2000)
+			setSuccess(register?.data?.message)
+			setTimeout(() => window.location.replace('/auth/sign-in'), 1500)
 		} catch(error) {
 			setError(error.response?.data || error.message)
 			console.error(error)
@@ -52,9 +52,8 @@ export const AuthProvider = ({ children }): ReactNode => {
 		try {
 			const login = await user.signIn(data)
 			localStorage.setItem('token', login.data?.token)
-			setSuccess(login.data)
-			console.log(login.data)
-			// setTimeout(() => window.location.replace('/'), 2000)
+			setSuccess(login?.data?.token)
+			setTimeout(() => window.location.replace('/'), 1500)
 		} catch (error) {
 			setError(error.response?.data || error.message)
 			console.error(error)
