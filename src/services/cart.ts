@@ -1,9 +1,8 @@
 import services from '.';
-import { AddToCartI } from '../interfaces/Cart';
+import { AddToCartI, UpdateCartI } from '../interfaces/Cart';
 
 export default {
-  addToCart: (data: AddToCartI) => services.post('/cart/add', {
-    productId: data.productId,
-    quantity: data.quantity
-  })
+  getCartItems: () => services.get('/cart/'),
+  addToCart: (data: AddToCartI) => services.post('/cart/add', data),
+  updateCart: (data: UpdateCartI) => services.put('/cart/update', data),
 }

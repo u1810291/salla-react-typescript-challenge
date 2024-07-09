@@ -17,9 +17,8 @@ const singleInstance = (): Axios => {
 
   instance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
     const URL = config.url?.split('/')
-    if(config.method === 'post' && !URL?.includes('user')) {
+    if(!URL?.includes('user')) {
       const token = window.localStorage?.getItem('token')
-      console.log(config, token)
       config.url = config.url + `?token=${token}`
     }
     return config

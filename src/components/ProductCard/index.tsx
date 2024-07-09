@@ -1,10 +1,10 @@
 import React from 'react'
 import { ProductI } from '../../interfaces/CategoryProducts'
 import { useCart } from '../../hooks/useCart'
+import Spinner from '../Spinner'
 
 export default function ProductCard({ product }: { product: ProductI }) {
   const { addToCart, error, success, loading } = useCart()
-  console.log(error, success, loading)
   const price: number = Number(product?.price?.toFixed(2))
   const discountPrice: number = Math.abs(Number((price / 4).toFixed(2)) - price)
   return (
@@ -24,7 +24,12 @@ export default function ProductCard({ product }: { product: ProductI }) {
         <span className="font-medium text-md">{discountPrice} SAR</span>
         <span className="font-medium text-sm line-through text-gray-300">{price} SAR</span>
       </div>
-      <button type="button" onClick={addToCart({ productId: product?.id, quantity: 1 })} className="w-full bg-primary text-white p-2 text-md rounded-md">إضافة للسلة</button>
+      <button
+        type="button"
+        onClick={addToCart({ productId: product?.id, quantity: 1 })}
+        className="w-full bg-primary text-white text-md rounded-md h-[40px] flex content-center justify-center">
+          {loading ? <Spinner /> : <span className='p-2'>'إضافة للسلة'</span>}
+        </button>
     </div>
   )
 }

@@ -34,7 +34,7 @@ export default function Item({ title, price, currency, count, src }: ItemProps) 
       <div className="flex items-center justify-center gap-4">
         <div className="flex shrink-0 items-center justify-center p-2 border border-1 border-gray-200 rounded-lg">
           <AddButton />
-          <input type="number" value="2" className="w-[50px] flex-1 text-center appearance-none bg-transparent" />
+          <input onChange={(e)=> {}} type="number" value={count} className="w-[50px] flex-1 text-center appearance-none bg-transparent" />
           <ReduceButton />
         </div>
         <DeleteButton />
