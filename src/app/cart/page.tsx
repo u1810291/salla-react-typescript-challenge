@@ -6,11 +6,12 @@ import { ItemsI } from 'src/interfaces/Cart'
 import Spinner from 'src/components/Spinner'
 
 export default function Cart() {
-  const { fetchCartData, success: items, loading } = useCart()
+  const { fetchCartData, success: items, loading, updateCartData, deleteCartData } = useCart()
 
   useEffect(() => {
     fetchCartData()
   }, [])
+  console.log(updateCartData)
 
   return (
     <main className="w-full main flex-auto">
@@ -20,20 +21,19 @@ export default function Cart() {
             <h2 className="text-lg flex items-center justify-start gap-2">سلة المشتريات</h2>
           </div>
           <ul className="flex flex-col">
-            {!items?.cartItems.length && loading ? (
+            {loading && !items?.cartItems?.length ? (
               <Spinner />
-            ) : items?.cartItems?.map(({ id, quantity, product }: ItemsI) => (
+            ) : items?.cartItems?.map((item: ItemsI) => (
               <li
-                key={`${id}-${quantity}`}
+                key={`${item.id}-${item.quantity}`}
                 className="flex items-start ms:items-center flex-col sm:flex-row
                   justify-between gap-4 w-full p-4 rounded-md transition-all hover:bg-grayer-100"
               >
                 <Item
-                  src={product?.imageURL}
-                  title={product?.name}
-                  price={product?.price}
+                  item={item}
                   currency='SAR'
-                  count={quantity}
+                  deleteCartItem={deleteCartData}
+                  updateCartItem={updateCartData}
                 />
               </li>
             ))}

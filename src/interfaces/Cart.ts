@@ -18,6 +18,6 @@ export interface CartItemsI {
 
 export interface UpdateCartI {
   id: number;
-  quantity: number;
+  quantity?: number;
   productId: number;
 }

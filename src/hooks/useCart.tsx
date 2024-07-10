@@ -1,7 +1,6 @@
 import cart from '../services/cart'
 import { useState, useCallback } from 'react'
-import { AddToCartI, CartItemsI } from '../interfaces/Cart'
-import { AxiosResponse } from 'axios'
+import { AddToCartI, CartItemsI, UpdateCartI } from '../interfaces/Cart'
 import execute from '../filter/allExceptionFilter'
 
 export const useCart = () => {
@@ -11,15 +10,7 @@ export const useCart = () => {
 
   const addToCart = useCallback((data: AddToCartI) => async () => {
     setLoading(true)
-    try {
-      const res = await cart.addToCart(data)
-      setSuccess(res.data)
-    } catch (error) {
-      console.error(error.response?.data || error.message)
-			setError(error.response?.data || error.message)
-    } finally {
-      setLoading(false)
-    }
+    execute<CartItemsI>(setSuccess, () => cart.addToCart(data), setError).finally(() => setLoading(false))
   }, [])
 
   const fetchCartData = useCallback(() => {
@@ -27,15 +18,30 @@ export const useCart = () => {
     execute<CartItemsI>(setSuccess, cart.getCartItems, setError).finally(() => setLoading(false))
   }, [])
 
-  const updateCartData = useCallback((data) => async () => {
+  const updateCartData = useCallback((data: UpdateCartI) => async () => {
     setLoading(true)
-    
-  } , [])
+    execute<CartItemsI>(setSuccess, () => cart.updateCart(data), setError).finally(() => {
+      setLoading(false)
+      //TODO: this part needs to be moved to context api or redux in future
+      fetchCartData()
+    })
+  }, [])
+
+  const deleteCartData = useCallback((id: number) => async () => {
+    setLoading(true)
+    execute<CartItemsI>(setSuccess, () => cart.deleteCartItem(id), setError).finally(() => {
+      setLoading(false)
+      fetchCartData()
+    })
+  }, [])
+
   return {
     error,
     success,
     loading,
     addToCart,
-    fetchCartData
+    fetchCartData,
+    updateCartData,
+    deleteCartData,
   }
 }

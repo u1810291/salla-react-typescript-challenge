@@ -13,7 +13,7 @@ export interface UserSignInI {
 
 export interface AuthContextI {
 	error: string;
-	success: string;
+	success: string | Record<string, string>;
 	loading: boolean;
 	getMe: () => void;
 	signUp: (data: UserSignUpI) => void;
