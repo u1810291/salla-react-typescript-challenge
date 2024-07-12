@@ -4,7 +4,7 @@ const nextConfig = {
   distDir: './dist', // Changes the build output directory to `./dist/`.
   images: {
     loader: 'custom',
-    loaderFile: './my/image/loader.js',
+    loaderFile: '/public/images/icons/spinner.svg',
   },
   env: {
     API_URL: process.env.API_URL
