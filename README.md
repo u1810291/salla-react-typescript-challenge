@@ -26,3 +26,13 @@ In this project, You will be reviewed on the following areas:
 * SEO Optimization using SSR rendering.
 * Data validation.
 * Performance Optimization.
+
+## Webpack package.json configuration
+```json
+{
+  "production": "webpack --mode production",
+  "prod": "webpack --mode production",
+  "development": "webpack --mode development",
+  "watch": "webpack --mode development --watch"
+}
+```
