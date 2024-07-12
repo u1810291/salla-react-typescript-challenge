@@ -30,7 +30,7 @@ export default function Detail() {
 
   return (
     <main className='w-full main flex-auto'>
-      <div className='container'>
+      <div className='container mx-auto'>
         <div className='p-2 sm:p-4 bg-white rounded-lg shadow-4xl'>
           <div className='grid grid-cols-1 sm:grid-cols-3 sm:gap-4'>
             <Image
