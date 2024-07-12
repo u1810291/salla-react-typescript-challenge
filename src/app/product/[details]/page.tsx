@@ -20,14 +20,10 @@ export default function Detail() {
 
   useEffect(() => {
     fetchCartData()
-    console.log('fetchData has been')
   }, [addToCart])
 
-  console.log(cartItem)
   useEffect(() => {
-    console.log('This is cart Item', cartItem)
     if (cartItem) {
-      console.log('Inside if statement', success?.cartItems)
       setQuantity(cartItem?.quantity)
     }
   }, [loading, cartItem])

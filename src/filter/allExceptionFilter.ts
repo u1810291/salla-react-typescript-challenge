@@ -8,7 +8,6 @@ export default async function AllExceptionFilter<T>(
   try {
     const res: AxiosResponse<T> = await func()
     const data: T = res.data
-    console.log(data)
     resolve(data)
   } catch (error) {
     console.error(error.response?.data || error.message)

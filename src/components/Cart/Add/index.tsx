@@ -16,7 +16,7 @@ function Add<T extends { quantity?: number }>({
     <button
       disabled={isDisabled}
       className="shrink-0 px-2 text-md text-gray-500"
-      onClick={() => {handler(); console.log('handler is called')}}
+      onClick={handler}
     >
       +
     </button>
