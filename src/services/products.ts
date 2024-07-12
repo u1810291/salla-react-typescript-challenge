@@ -1,5 +1,5 @@
 import services from '.';
 
 export default {
-  getProducts: () => services.get(`/product/`)
+  getProducts: () => services.get(`/product/`),
 }

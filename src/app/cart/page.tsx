@@ -11,7 +11,6 @@ export default function Cart() {
   useEffect(() => {
     fetchCartData()
   }, [])
-  console.log(updateCartData)
 
   return (
     <main className="w-full main flex-auto">
